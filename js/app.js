@@ -11,16 +11,28 @@ function adicionar() {
 }
 
 function sortear() {
-    let maxAmigos = amigosIncluidos.length;
-    const minAmigos = 0;
+    embaralhar(amigosIncluidos);
 
-    let x = numeroAleatorio(minAmigos, maxAmigos);
-    let amigoSorteado = amigosIncluidos[x];
-    
+    let listaSorteio = document.getElementById('lista-sorteio');
+
+    for (let i = 0; i < amigosIncluidos.length; i++) {
+        if (i == (amigosIncluidos.length - 1)) {
+            listaSorteio.innerHTML += amigosIncluidos[i] + ' --> ' + amigosIncluidos[0] + '<br>';
+        } else {
+            listaSorteio.innerHTML += amigosIncluidos[i] + ' --> ' + amigosIncluidos[i + 1] + '<br>'; 
+        }
+    }
 }
 
-function numeroAleatorio(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function embaralhar(lista) {
+    for (let indice = lista.length; indice; indice--) {
+        const indiceAleatorio = Math.floor(Math.random() * indice);
+        [lista[indice - 1], lista[indiceAleatorio]] = [lista[indiceAleatorio], lista[indice - 1]];
+    }
 }
 
-function reiniciar() {}
+function reiniciar() {
+    amigosIncluidos = [];
+    document.getElementById('lista-amigos').innerHTML = '';
+    document.getElementById('lista-sorteio').innerHTML = '';
+}
